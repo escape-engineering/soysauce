@@ -12,12 +12,238 @@
                 justify-content: center;
                 margin: 5px auto;
             }
+            /* 모달 관련 CSS */
+            .modal {
+                position: absolute;
+                display: none;
+                justify-content: center;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgb(0, 0, 0, 0.4);
+            }
+            .memberModal {
+                background-color: white;
+                border: 1px solid black;
+                border-radius: 15px;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 5px;
+
+                margin: auto;
+
+                width: 40vw;
+                height: 80vh;
+
+                padding: 10px;
+            }
+            .closeBtnWrap {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                width: 100%;
+            }
+            .btnCloseModal {
+                background-color: transparent;
+                border: none;
+                color: red;
+                font-weight: bold;
+                font-size: 20px;
+                width: 30px;
+                height: 30px;
+                background-image: url('https://cdn-icons-png.flaticon.com/512/7124/7124232.png');
+                background-position: center;
+                background-size: cover;
+            }
+            .btnCloseModal > image {
+                object-fit: fill;
+            }
+            .memberIntroduce {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+
+                border: 1px solid black;
+                border-radius: 15px;
+
+                padding: 20px;
+                gap: 20px;
+
+                width: 35vw;
+                height: 35vh;
+                max-height: 100%;
+                overflow-y: auto;
+            }
+            .memberImage {
+                width: 200px;
+                height: 200px;
+            }
+            .memberCommentBox {
+                border: 1px solid black;
+                border-radius: 15px;
+                padding: 5px 20px;
+                width: 35vw;
+                height: 35vh;
+                max-height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+            .memberCommentBox > p {
+                width: 100%;
+                border-bottom: 1px solid lightgray;
+            }
+            /* 모달 관련 CSS */
         </style>
+        <!-- 임시데이터로 모달불러오기 -->
+        <script>
+            const members = [
+                {
+                    id: 1,
+                    img: 'https://res.heraldm.com/content/image/2022/03/30/20220330000784_0.jpg',
+                    name: '유재희',
+                    desc: '안녕하세요 비전공자출신 개발자가 되고싶은 유재희입니다!',
+                    comment: [
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                    ],
+                },
+                {
+                    id: 2,
+                    img: 'https://res.heraldm.com/content/image/2022/03/30/20220330000784_0.jpg',
+                    name: '전상국',
+                    desc: '안녕하세요 비전공자출신 개발자가 되고싶은 전상국입니다!',
+                    comment: [
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                    ],
+                },
+                {
+                    id: 3,
+                    img: 'https://res.heraldm.com/content/image/2022/03/30/20220330000784_0.jpg',
+                    name: '이재호',
+                    desc: '안녕하세요 비전공자출신 개발자가 되고싶은 이재호입니다!',
+                    comment: [
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                    ],
+                },
+                {
+                    id: 4,
+                    img: 'https://res.heraldm.com/content/image/2022/03/30/20220330000784_0.jpg',
+                    name: '김민영',
+                    desc: '안녕하세요 비전공자출신 개발자가 되고싶은 김민영입니다!',
+                    comment: [
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                    ],
+                },
+                {
+                    id: 5,
+                    img: 'https://res.heraldm.com/content/image/2022/03/30/20220330000784_0.jpg',
+                    name: '허민우',
+                    desc: '안녕하세요 비전공자출신 개발자가 되고싶은 허민우입니다!',
+                    comment: [
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                        { cName: '전상국', cDesc: '안녕하세요!' },
+                    ],
+                },
+            ];
+        </script>
+        <!-- 임시데이터로 모달불러오기 -->
     </head>
 
     <body>
         <div class="mainContainer">
             <div></div>
         </div>
+
+        <!-- 모달관련 코드 -->
+        <button class="btnOpenModal" id="1">유재희님 모달 테스트</button>
+        <button class="btnOpenModal" id="2">전상국 모달 테스트</button>
+        <button class="btnOpenModal" id="3">이재호님 모달 테스트</button>
+        <button class="btnOpenModal" id="4">김민영님 모달 테스트</button>
+        <button class="btnOpenModal" id="5">허민우님 모달 테스트</button>
+        <div class="modal">
+            <div class="memberModal">
+                <div class="closeBtnWrap">
+                    <button class="btnCloseModal"></button>
+                </div>
+            </div>
+        </div>
+        <!-- 모달관련 코드 -->
+        <!-- 모달관련 스크립트 -->
+        <script>
+            const modal = document.querySelector('.modal');
+            const btnOpenModal = document.querySelector('.btnOpenModal');
+
+            btnOpenModal.addEventListener('click', (e) => {
+                modal.style.display = 'flex';
+                const targetMemberId = e.target.id;
+                const { name, img, desc, comment } = members[targetMemberId - 1];
+                console.log(comment);
+                let commentBox = ``;
+                comment.forEach((el) => (commentBox += `<p><span>${el.cName}</span> : <span>${el.cDesc}</span></p>`));
+                let temp_html = `
+                <div class="memberIntroduce">
+                    <image
+                        class="memberImage"
+                        src=${img}
+                        alt="멤버 이미지"
+                    />
+                    <div>
+                        <p><span>이름</span> : <span>${name}</span></p>
+                        <p>
+                            <span>간단한 소개</span> :
+                            <span
+                                >${desc}</span
+                            >
+                        </p>
+                    </div>
+                </div>
+                <div class="memberCommentBox">
+                ${commentBox}
+                </div>`;
+                let parent = document.querySelector('.memberModal');
+                parent.insertAdjacentHTML('beforeend', temp_html);
+            });
+            const btnCloseModal = document.querySelector('.btnCloseModal');
+            btnCloseModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        </script>
+        <!-- 모달관련 스크립트 -->
     </body>
 </html>
